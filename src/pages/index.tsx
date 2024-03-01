@@ -84,76 +84,109 @@ const Page: React.FC = () => {
           <div className="flex items-center flex-col mx-auto w-full mt-16 md:mt-32 justify-center px-2 md:px-8">
             <div className="h-40 w-40 md:h-72 md:w-72">
               <img
-                className="rounded-full h-40 w-40 md:h-72  md:w-72 border border-[12px] border-[rgba(255,255,255,0.04)]"
+                className="rounded-full h-40 w-40 md:h-72  md:w-72 border"
                 alt="Picture of the author"
                 src={profile?.imageUrl ?? ""}
                 width={288}
                 height={288}
               />
             </div>
-            <h1 className="font-bold mt-4 text-2xl text-white">
-              {profile?.name ?? ""}
-            </h1>
-            <h3 className="text-base text-white">@{profile?.name ?? ""}</h3>
             <p className="text-white text-center text-base my-8">
               {profile?.bio ?? ""}
             </p>
-            <Tabs defaultValue="links" className="w-full">
+            <Tabs defaultValue="Game" className="w-full">
               <TabsList className="flex items-center justify-center">
-                <TabsTrigger value="links">Links</TabsTrigger>
-                <TabsTrigger value="nfts">NFTs</TabsTrigger>
-                <TabsTrigger value="projects">Projects</TabsTrigger>
-                <TabsTrigger value="send">Donate</TabsTrigger>
+                <TabsTrigger value="Game">Game</TabsTrigger>
+                <TabsTrigger value="Fans">Fans</TabsTrigger>
+                <TabsTrigger value="Friends">Friends</TabsTrigger>
+                <TabsTrigger value="Following">Following</TabsTrigger>
               </TabsList>
-              <TabsContent
-                value="links"
-                className="w-full mt-8 flex flex-col items-center justify-center"
-              >
-                {profile.links.map((link: any, index: number) => (
-                  <LinkCard
-                    key={link.name}
-                    href={link.url}
-                    title={link.name}
-                    image="/LinkDefaultIcon.svg"
-                  />
-                ))}
-              </TabsContent>
-              <TabsContent
-                value="nfts"
-                className="grid md:grid-cols-3 grid-cols-2 gap-3 max-w-96 place-self-center mx-auto"
-              >
-                {nftLoading && <p>Loading...</p>}
-                {allNfts.map((nft: any) => {
-                  const imageUri = nft.image.cachedUrl;
 
-                  return (
-                    <Image
-                      key={imageUri}
-                      src={imageUri}
-                      alt="nft-item"
-                      className="h-auto w-full max-w-full rounded-md min-h-32"
-                      width={128}
-                      height={128}
-                    />
-                  )
-                })}
-              </TabsContent>
-              <TabsContent
-                value="projects"
-                className="w-full mt-8 flex flex-col items-center justify-center"
-              >
-                {profile.projects.map((project: any) => (
-                  <LinkCard
-                    key={project.name}
-                    href={project.url}
-                    title={project.name}
-                    image="/LinkDefaultIcon.svg"
-                  />
-                ))}
-              </TabsContent>
-              <TabsContent value="send">
+              <TabsContent value="Game">
                 <SendTransaction />
               </TabsContent>
+            
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <TabsContent // AMS - replace with table of users - date followed
+                value="Fans"
+                className="place-self-center mx-auto"
+              >
+                {nftLoading && <p>Loading...</p>}
+                <table className="border-collapse border border-gray-400">
+                  <thead>
+                    <tr>
+                      <th className="border border-gray-400 p-2">User</th>
+                      <th className="border border-gray-400 p-2">Following Since</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-400 p-2 text-center">Anna</td>
+                      <td className="border border-gray-400 p-2 text-center">123</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-400 p-2 text-center">Bob</td>
+                      <td className="border border-gray-400 p-2 text-center">456</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-400 p-2 text-center">Charlie</td>
+                      <td className="border border-gray-400 p-2 text-center">789</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </TabsContent>
+            </div>
+            
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <TabsContent // AMS - remove list of NFTs
+                value="Friends" // AMS - replace with table of users - date followed
+                className="place-self-center mx-auto"
+              >
+                {nftLoading && <p>Loading...</p>}
+                <table className="border-collapse border border-gray-400">
+                  <thead>
+                    <tr>
+                      <th className="border border-gray-400 p-2">User</th>
+                      <th className="border border-gray-400 p-2">Following Since</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-400 p-2 text-center">AAAAAAAAA</td>
+                      <td className="border border-gray-400 p-2 text-center">123</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </TabsContent>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <TabsContent // AMS - replace with table of users - date followed
+                value="Following"
+                className="place-self-center mx-auto"
+              >
+                {nftLoading && <p>Loading...</p>}
+                <table className="border-collapse border border-gray-400">
+                  <thead>
+                    <tr>
+                      <th className="border border-gray-400 p-2">User</th>
+                      <th className="border border-gray-400 p-2">Following Since</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-400 p-2 text-center">AAA</td>
+                      <td className="border border-gray-400 p-2 text-center">123</td>
+                    </tr>
+                    <tr>
+                      <td className="border border-gray-400 p-2 text-center">BB</td>
+                      <td className="border border-gray-400 p-2 text-center">456</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </TabsContent>
+            </div>
+            
             </Tabs>
           </div>
         </FadeIn>
