@@ -1,3 +1,5 @@
+# Follow Back
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -24,17 +26,12 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Explaining the Game:
 
-To learn more about Next.js, take a look at the following resources:
+A creator can access the webpage where they can find 3 tabs: a tab to initialize the game, a tan containing a list of friends (mutual follow), and a tab with fan (following user, but not visa versa). The "play" button triggers Metamask to sign smart contract initializing the game. Players are prompted to joing and sign themselves via a Farcaster frame. A winner is randomly selected using Chainlinks random functions. The winner is then airdropped a unique "friendship" NFT.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Bounties
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Connect the World with ChainLink
+- Best NFT App with Phosphor
+- Unleash Your Creativity with MetaMask SDK
