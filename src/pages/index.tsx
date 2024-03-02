@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import Wrapper from "@/components/Wrapper";
 import { FadeIn } from "@/components/FadeIn";
 import Image from "next/image";
@@ -8,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { profile } from "@/data/profile";
 import { ConnectKitButton } from "connectkit";
 import { SendTransaction } from "@/components/SendTransaction";
+import FarcasterTable from "@/components/FarcasterTable";
+import { fetchFollowers, fetchFriends } from "@/scripts/Farcaster.cjs"; // Update the correct path
 
 function LinkCard({
   href,
@@ -46,6 +47,36 @@ function LinkCard({
 }
 
 const Page: React.FC = () => {
+  const [followersData, setFollowersData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const identity = "";
+        const fansList = await fetchFollowers(identity);
+        setFollowersData(fansList);
+      } catch (error) {
+        console.error("Error fetching followers:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const [friendsData, setFriendsData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const identity = "";
+        const fansList = await fetchFriends(identity);
+        setFollowersData(fansList);
+      } catch (error) {
+        console.error("Error fetching followers:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const {
     loading: nftLoading,
     error: nftError,
@@ -96,97 +127,34 @@ const Page: React.FC = () => {
             </p>
             <Tabs defaultValue="Game" className="w-full">
               <TabsList className="flex items-center justify-center">
-                <TabsTrigger value="Game">Game</TabsTrigger>
+                <TabsTrigger value="Game">Play Game</TabsTrigger>
                 <TabsTrigger value="Fans">Fans</TabsTrigger>
                 <TabsTrigger value="Friends">Friends</TabsTrigger>
-                <TabsTrigger value="Following">Following</TabsTrigger>
               </TabsList>
 
               <TabsContent value="Game">
                 <SendTransaction />
               </TabsContent>
-            
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <TabsContent // AMS - replace with table of users - date followed
-                value="Fans"
-                className="place-self-center mx-auto"
-              >
-                {nftLoading && <p>Loading...</p>}
-                <table className="border-collapse border border-gray-400">
-                  <thead>
-                    <tr>
-                      <th className="border border-gray-400 p-2">User</th>
-                      <th className="border border-gray-400 p-2">Following Since</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border border-gray-400 p-2 text-center">Anna</td>
-                      <td className="border border-gray-400 p-2 text-center">123</td>
-                    </tr>
-                    <tr>
-                      <td className="border border-gray-400 p-2 text-center">Bob</td>
-                      <td className="border border-gray-400 p-2 text-center">456</td>
-                    </tr>
-                    <tr>
-                      <td className="border border-gray-400 p-2 text-center">Charlie</td>
-                      <td className="border border-gray-400 p-2 text-center">789</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </TabsContent>
-            </div>
-            
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <TabsContent // AMS - remove list of NFTs
-                value="Friends" // AMS - replace with table of users - date followed
-                className="place-self-center mx-auto"
-              >
-                {nftLoading && <p>Loading...</p>}
-                <table className="border-collapse border border-gray-400">
-                  <thead>
-                    <tr>
-                      <th className="border border-gray-400 p-2">User</th>
-                      <th className="border border-gray-400 p-2">Following Since</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border border-gray-400 p-2 text-center">AAAAAAAAA</td>
-                      <td className="border border-gray-400 p-2 text-center">123</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </TabsContent>
-            </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <TabsContent // AMS - replace with table of users - date followed
-                value="Following"
-                className="place-self-center mx-auto"
-              >
-                {nftLoading && <p>Loading...</p>}
-                <table className="border-collapse border border-gray-400">
-                  <thead>
-                    <tr>
-                      <th className="border border-gray-400 p-2">User</th>
-                      <th className="border border-gray-400 p-2">Following Since</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td className="border border-gray-400 p-2 text-center">AAA</td>
-                      <td className="border border-gray-400 p-2 text-center">123</td>
-                    </tr>
-                    <tr>
-                      <td className="border border-gray-400 p-2 text-center">BB</td>
-                      <td className="border border-gray-400 p-2 text-center">456</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </TabsContent>
-            </div>
-            
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <TabsContent // AMS - replace with table of users - date followed
+                  value="Fans"
+                  className="place-self-center mx-auto"
+                >
+                  {nftLoading && <p>Loading...</p>}
+                  <FarcasterTable />
+                </TabsContent>
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <TabsContent // AMS - remove list of NFTs
+                  value="Friends" // AMS - replace with table of users - date followed
+                  className="place-self-center mx-auto"
+                >
+                  {nftLoading && <p>Loading...</p>}
+                  <FarcasterTable />
+                </TabsContent>
+              </div>
             </Tabs>
           </div>
         </FadeIn>

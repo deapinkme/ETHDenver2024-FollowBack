@@ -13,41 +13,39 @@ const config = createConfig(
     transports: {
       // RPC URL for each chain
       [mainnet.id]: http(
-        `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_MAINNET}`,
+        `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_MAINNET}`
       ),
     },
 
     // Required API Keys
-    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '',
+    walletConnectProjectId:
+      process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "",
 
     // Required App Info
-    appName: "Crypto Portfolio",
+    appName: "Followback",
 
     // Optional App Info
-    appDescription: "A great app for managing your portfolio",
+    appDescription: "Boost your social media followers",
     appUrl: "https://family.co", // your app's url
     appIcon: "https://family.co/logo.png", // your app's icon, no bigger than 1024x1024px (max. 1MB)
-  }),
+  })
 );
 export default function App({ Component, pageProps }: AppProps) {
-
-const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <ConnectKitProvider>
-        <ThemeProvider
-          
-          
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-        <Component {...pageProps} />;
-        </ThemeProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Component {...pageProps} />;
+          </ThemeProvider>
         </ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
   );
-};
+}
